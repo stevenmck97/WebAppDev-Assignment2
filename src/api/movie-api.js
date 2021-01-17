@@ -46,3 +46,22 @@ export const getFavouriteMovies = (userName, movieId) => {
         body: JSON.stringify({ id: movieId })
     }).then(res => res.json)
 }
+
+export const getPopularPeople = () => {
+    return fetch(
+       '/api/people',{headers: {
+         'Authorization': window.localStorage.getItem('token')
+      }
+    }
+    ).then(res => res.json());
+  };
+
+  export const getTvShows = () => {
+    return fetch(
+       '/api/tvShows',{headers: {
+         'Authorization': window.localStorage.getItem('token')
+      }
+    }
+    ).then(res => res.json());
+  };
+

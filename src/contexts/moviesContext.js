@@ -1,18 +1,18 @@
 import React, { useState, useEffect, createContext, useReducer } from "react";
 import { getUpcomingMovies } from "../api/tmdb-api";
-import { getMovies, addFavouriteMovies, getFavouriteMovies } from "../api/movie-api";
+import { getMovies, addFavouriteMovies } from "../api/movie-api";
 
 export const MoviesContext = createContext(null);
 
 const reducer = (state, action) => {
   switch (action.type) {
-    // case "add-favorite":
-    //   return {
-    //     movies: state.movies.map((m) =>
-    //       m.id === action.payload.movie.id ? { ...m, favorite: true } : m
-    //     ),
-    //     upcoming: [...state.upcoming],
-    //   };
+    case "add-favorite":
+      return {
+        movies: state.movies.map((m) =>
+          m.id === action.payload.movie.id ? { ...m, favorite: true } : m
+        ),
+        upcoming: [...state.upcoming],
+      };
     case "add-watchList":
       return {
         upcoming: state.upcoming.map((m) =>

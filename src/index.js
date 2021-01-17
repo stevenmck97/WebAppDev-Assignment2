@@ -36,9 +36,10 @@ const PeopleContextProvider = lazy(() => import("./contexts/peopleContext"));
 const LoginPage = lazy(() => import("./pages/loginPage"));
 const SignUpPage = lazy(() => import("./pages/signUpPage"));
 const AuthContext = lazy(() => import("./contexts/authContext"));
-
+const PrivateRoute = lazy(() => import("./privateRoute"));
 
 const App = () => {
+
   return (
     <BrowserRouter>
       <div className="jumbotron">
@@ -52,26 +53,26 @@ const App = () => {
                     <TvGenresContextProvider>
                       <PeopleContextProvider>
                         <Switch>
-                          <Route exact path="/reviews/form" component={AddMovieReviewPage} />
-                          <Route exact path="/tvReviews/form" component={AddTvReviewPage} />
-                          <Route exact path="/movies/favorites" component={FavoriteMoviesPage} />
-                          <Route path="/movies/upcoming" component={UpcomingMoviesPage} />
-                          <Route path="/movies/watchList" component={MovieWatchListPage} />
-                          <Route exact path="/tv/favorites" component={FavoriteTvShowsPage} />
-                          <Route exact path="/tv/watchList" component={TvWatchListPage} />
-                          <Route exact path="/tv/airing" component={AiringTvShowsPage} />
-                          <Route exact path="/tv/topRated" component={TopRatedTvShowsPage} />
-                          <Route exact path="/tv/discover" component={TvListPage} />
-                          <Route exact path="/person/popular" component={PersonPopularPage} />
-                          <Route exact path="/person/favorites" component={FavoritePeoplePage} />
-                          <Route path="/reviews/:id" component={MovieReviewPage} />
-                          <Route path="/tvReviews/:id" component={TvReviewPage} />
-                          <Route path="/movies/:id" component={MoviePage} />
-                          <Route path="/tv/:id" component={TvPage} />
-                          <Route path="/person/:id" component={PersonPage} />
+                          <PrivateRoute exact path="/reviews/form" component={AddMovieReviewPage} />
+                          <PrivateRoute exact path="/tvReviews/form" component={AddTvReviewPage} />
+                          <PrivateRoute exact path="/movies/favorites" component={FavoriteMoviesPage} />
+                          <PrivateRoute path="/movies/upcoming" component={UpcomingMoviesPage} />
+                          <PrivateRoute path="/movies/watchList" component={MovieWatchListPage} />
+                          <PrivateRoute exact path="/tv/favorites" component={FavoriteTvShowsPage} />
+                          <PrivateRoute exact path="/tv/watchList" component={TvWatchListPage} />
+                          <PrivateRoute exact path="/tv/airing" component={AiringTvShowsPage} />
+                          <PrivateRoute exact path="/tv/topRated" component={TopRatedTvShowsPage} />
+                          <PrivateRoute exact path="/tv/discover" component={TvListPage} />
+                          <PrivateRoute exact path="/person/popular" component={PersonPopularPage} />
+                          <PrivateRoute exact path="/person/favorites" component={FavoritePeoplePage} />
+                          <PrivateRoute path="/reviews/:id" component={MovieReviewPage} />
+                          <PrivateRoute path="/tvReviews/:id" component={TvReviewPage} />
+                          <PrivateRoute path="/movies/:id" component={MoviePage} />
+                          <PrivateRoute path="/tv/:id" component={TvPage} />
+                          <PrivateRoute path="/person/:id" component={PersonPage} />
                           <Route path="/login" component={LoginPage} />
                           <Route path="/signup" component={SignUpPage} />
-                          <Route path="/" component={HomePage} />
+                          <PrivateRoute path="/" component={HomePage} />
                           <Redirect from="*" to="/" />
                         </Switch>
                       </PeopleContextProvider>

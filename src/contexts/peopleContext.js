@@ -1,5 +1,5 @@
-import React, { useEffect, createContext, useReducer } from "react";
-import { getPopularPeople } from "../api/tmdb-api";
+import React, { useState, useEffect, createContext, useReducer } from "react";
+import { getPopularPeople } from "../api/movie-api";
 
 export const PeopleContext = createContext(null);
 
@@ -21,6 +21,7 @@ const reducer = (state, action) => {
 
 const PeopleContextProvider = (props) => {
   const [state, dispatch] = useReducer(reducer, { popular: []});
+  const [authenticated, setAuthenticated] = useState(false);
 
   const addToFavorites = (personId) => {
     const index = state.popular.map((p) => p.id).indexOf(personId);
@@ -40,6 +41,7 @@ const PeopleContextProvider = (props) => {
       value={{
         popular: state.popular,
         addToFavorites: addToFavorites,
+        setAuthenticated
       }}
     >
       {props.children}

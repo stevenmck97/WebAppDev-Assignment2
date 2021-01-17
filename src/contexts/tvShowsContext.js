@@ -1,5 +1,6 @@
-import React, { useEffect, createContext, useReducer } from "react";
-import { getTvShows, getAiringTvShows, getTopRatedTvShows } from "../api/tmdb-api";
+import React, { useState, useEffect, createContext, useReducer } from "react";
+import { getAiringTvShows, getTopRatedTvShows } from "../api/tmdb-api";
+import { getTvShows } from "../api/movie-api";
 
 export const TvShowsContext = createContext(null);
 
@@ -51,6 +52,7 @@ const reducer = (state, action) => {
 
 const TvShowsContextProvider = (props) => {
     const [state, dispatch] = useReducer(reducer, { tvShows: [], airing: [], topRated: [] });
+    const [authenticated, setAuthenticated] = useState(false);
 
     const addToFavorites = (tvShowId) => {
         const index = state.tvShows.map((t) => t.id).indexOf(tvShowId);
@@ -102,6 +104,7 @@ const TvShowsContextProvider = (props) => {
                 addToFavorites: addToFavorites,
                 addReview: addReview,
                 addToWatchList: addToWatchList,
+                setAuthenticated
             }}
         >
             {props.children}
