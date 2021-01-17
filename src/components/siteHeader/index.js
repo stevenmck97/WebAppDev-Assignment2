@@ -1,12 +1,15 @@
-import React from "react";
+import React, { useContext } from "react";
 import Dropdown from 'react-bootstrap/Dropdown';
 import { Link } from "react-router-dom";
+import { withRouter } from "react-router-dom";
+import { AuthContext } from "../../contexts/authContext";
 import "../../globals/fontawesome";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "./siteHeader.css";
 
 
 const SiteHeader = () => {
+  
   return (
     <nav className="navbar  navbar-light fixed-top  bg-dark ">
       <nav className="navbar-brand text-white">
@@ -29,7 +32,6 @@ const SiteHeader = () => {
       />
       <nav className="navbar navbar-expand ">
         <ul className="navbar-nav">
-
           <Dropdown className="btn-header">
             <Dropdown.Toggle variant="secondary" id="dropdown-basic">
               Movies
@@ -62,6 +64,16 @@ const SiteHeader = () => {
             <Dropdown.Menu>
               <Dropdown.Item as={Link} to="/person/popular">Popular Actors </Dropdown.Item>
               <Dropdown.Item as={Link} to="/person/favorites">Favorite Actors </Dropdown.Item>
+            </Dropdown.Menu>
+          </Dropdown>
+
+          <Dropdown className="btn-header">
+            <Dropdown.Toggle variant="secondary" id="dropdown-basic">
+              User Profile
+            </Dropdown.Toggle>
+            <Dropdown.Menu>
+              <Dropdown.Item as={Link} to="/login">Log-in </Dropdown.Item>
+              <Dropdown.Item as={Link} to="/signup">Register </Dropdown.Item>
             </Dropdown.Menu>
           </Dropdown>
 
