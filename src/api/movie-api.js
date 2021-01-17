@@ -26,3 +26,23 @@ export const getMovies = () => {
     }
     ).then(res => res.json());
   };
+
+  export const addFavouriteMovies = (userName, movieId) => {
+    return fetch(`/api/users/${userName}/favourites`, {
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        method: 'post',
+        body: JSON.stringify({ id: movieId })
+    }).then(res => res.json)
+}
+
+export const getFavouriteMovies = (userName, movieId) => {
+    return fetch(`/api/users/${userName}/favourites`, {
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        method: 'get',
+        body: JSON.stringify({ id: movieId })
+    }).then(res => res.json)
+}

@@ -1,18 +1,18 @@
 import React, { useState, useEffect, createContext, useReducer } from "react";
 import { getUpcomingMovies } from "../api/tmdb-api";
-import { getMovies } from "../api/movie-api";
+import { getMovies, addFavouriteMovies, getFavouriteMovies } from "../api/movie-api";
 
 export const MoviesContext = createContext(null);
 
 const reducer = (state, action) => {
   switch (action.type) {
-    case "add-favorite":
-      return {
-        movies: state.movies.map((m) =>
-          m.id === action.payload.movie.id ? { ...m, favorite: true } : m
-        ),
-        upcoming: [...state.upcoming],
-      };
+    // case "add-favorite":
+    //   return {
+    //     movies: state.movies.map((m) =>
+    //       m.id === action.payload.movie.id ? { ...m, favorite: true } : m
+    //     ),
+    //     upcoming: [...state.upcoming],
+    //   };
     case "add-watchList":
       return {
         upcoming: state.upcoming.map((m) =>
@@ -24,6 +24,8 @@ const reducer = (state, action) => {
       return { movies: action.payload.movies, upcoming: [...state.upcoming] };
     case "load-upcoming":
       return { upcoming: action.payload.movies, movies: [...state.movies] };
+      case "load-favourites":
+        return { favourites: action.payload.result};
     case "add-review":
       return {
         movies: state.movies.map((m) =>
@@ -42,10 +44,15 @@ const MoviesContextProvider = (props) => {
   const [state, dispatch] = useReducer(reducer, { movies: [], upcoming: [] });
   const [authenticated, setAuthenticated] = useState(false);
 
-  const addToFavorites = (movieId) => {
-    const index = state.movies.map((m) => m.id).indexOf(movieId);
-    dispatch({ type: "add-favorite", payload: { movie: state.movies[index] } });
-  };
+  const addToFavourites = async (username, movieId) => {
+    const result = await addFavouriteMovies(username, movieId);
+    console.log(result.code);
+    return (result.code == 201) ? true: false;
+  }
+
+
+
+
 
   const addToWatchList = (movieId) => {
     const index = state.upcoming.map((m) => m.id).indexOf(movieId);
@@ -75,7 +82,7 @@ const MoviesContextProvider = (props) => {
       value={{
         movies: state.movies,
         upcoming: state.upcoming,
-        addToFavorites: addToFavorites,
+        addToFavourites,
         addReview: addReview,
         addToWatchList: addToWatchList,
         setAuthenticated
